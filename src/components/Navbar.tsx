@@ -7,6 +7,7 @@ const Navbar = () => {
         <li><Link href={'/'}>Home</Link></li>
         <li><Link href={'/my_booking'}>My Booking</Link></li>
         <li><Link href={'/destinations'}>Destinations</Link></li>
+        <li><Link href={'/add-destination'}>Add Destination</Link></li>
       </ul>
       <div>
         <h4 className='text-2xl font-bold text-cyan-500'>Wanderlust</h4>
