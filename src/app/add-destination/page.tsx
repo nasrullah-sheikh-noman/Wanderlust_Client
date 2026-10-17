@@ -1,14 +1,34 @@
 "use client"
 import { Button, FieldError, Input, Label, TextArea, TextField, Select, ListBox, Card } from '@heroui/react';
 import type { FormEvent } from 'react';
+import { toast } from 'sonner';
 
 const AddDestinationPage = () => {
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+
+  const onSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const destinationData = Object.fromEntries(formData.entries());
     console.log("destination data", destinationData);
+    const res = await fetch("http://localhost:8000/destination", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(destinationData)
+    })
+    if (!res.ok) {
+      const errortext = await res.text();
+      console.error("Server error", res.status, errortext)
+      return
+    } else {
+      toast.success("Destination added successfully")
+    }
+    
+    const data = await res.json();
+    console.log(data);
   }
+
   return (
     <div className='p-5 max-w-7xl mx-auto'>
       <h1 className='text-2xl font-bold'>Add Destination page</h1>
