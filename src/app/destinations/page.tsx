@@ -11,7 +11,7 @@ const DestinatiosPage = async () => {
   const destinations : DestinationType[] = await res.json();
   // console.log("all destinations ", destinations);
   return (
-    <div className="mb-12">
+    <div className="mb-12 p-4">
       <h1 className="text-2xl font-bold">All Destinations</h1>
       <div className="grid grid-cols-2 gap-6 max-w-7xl mx-auto justify-center p-6">
         {
