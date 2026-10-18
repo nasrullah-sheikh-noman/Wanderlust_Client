@@ -15,6 +15,7 @@ import {
 } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
+import { BiSolidEdit } from "react-icons/bi";
 import { MdArrowOutward } from "react-icons/md";
 import { toast } from "sonner";
 
@@ -63,7 +64,7 @@ export function EditModal({ destinationData }: DestinationDataType) {
   return (
     <Modal>
       <div>
-        <Button variant="outline" className={'rounded-xl px-6 py-5 border-2 underline'}>Edit <MdArrowOutward /></Button>
+        <Button variant="outline" className={'rounded-xl px-6 py-5 border-2 underline'}>Edit <BiSolidEdit /></Button>
       </div>
       <Modal.Backdrop>
         <Modal.Container placement="auto">

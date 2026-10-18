@@ -1,3 +1,4 @@
+import { DeleteDialog } from "@/components/DeleteDialog";
 import { EditModal } from "@/components/EditModal";
 import { Button } from "@heroui/react";
 import Image from "next/image";
@@ -25,7 +26,6 @@ const DestinationDetailsPage = async ({
   const {
     destination,
     country,
-    category,
     price,
     duration,
     imageUrl,
@@ -36,11 +36,7 @@ const DestinationDetailsPage = async ({
       <h2>Destination details page</h2>
       <div className="flex justify-end gap-2">
         <EditModal destinationData={destinationData} />
-        <div>
-          <Button variant="outline" className={"rounded-xl px-6 py-5 border-2 underline"}>
-            Delete <MdArrowOutward />
-          </Button>
-        </div>
+        <DeleteDialog destinationData={destinationData}/>
       </div>
       <div className="mx-auto max-w-7xl p-10 m-6 border-2 rounded-2xl">
         <div className="w-full mx-auto">
