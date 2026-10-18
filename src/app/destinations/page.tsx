@@ -1,17 +1,21 @@
+import DestinationCard from "@/components/DestinationCard";
+import { DestinationType } from "@/types/destination";
+
 export const instant = false
 
 const DestinatiosPage = async () => {
   const res = await fetch('http://localhost:8000/all-destinations');
-  const destinations = await res.json();
+  if (!res.ok) {
+    throw new Error("Failed to fatch destinations");
+  }
+  const destinations : DestinationType[] = await res.json();
   // console.log("all destinations ", destinations);
   return (
-    <div>
+    <div className="mb-12">
       <h1 className="text-2xl font-bold">All Destinations</h1>
-      <div>
+      <div className="grid grid-cols-2 gap-6 max-w-7xl mx-auto justify-center p-6">
         {
-          destinations.map(destination => <div key={destination._id}>
-            {destination.description}
-          </div>)
+          destinations.map(destination => <DestinationCard key={destination._id} destinationInfo={destination}/>)
         }
       </div>
     </div>
