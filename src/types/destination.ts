@@ -5,5 +5,7 @@ export interface DestinationType {
   category: string;
   price: number;
   duration: string;
-  imageUrl: string
+  imageUrl: string;
+  description: string;
+  departureDate: string;
 }

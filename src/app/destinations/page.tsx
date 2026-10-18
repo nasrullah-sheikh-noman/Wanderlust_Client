@@ -4,7 +4,7 @@ import { DestinationType } from "@/types/destination";
 export const instant = false
 
 const DestinatiosPage = async () => {
-  const res = await fetch('http://localhost:8000/all-destinations');
+  const res = await fetch('http://localhost:8000/destinations');
   if (!res.ok) {
     throw new Error("Failed to fatch destinations");
   }
