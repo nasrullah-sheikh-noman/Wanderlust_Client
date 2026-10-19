@@ -34,7 +34,7 @@ const SignUpPage = () => {
     })
     if (data) {
       toast.success("Sign up successfully completed")
-      redirect('/')
+      redirect('/login')
     } 
     if (error) {
       toast.error("Sign up failed")
