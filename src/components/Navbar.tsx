@@ -3,12 +3,23 @@
 import { authClient } from "@/lib/auth-client";
 import { Avatar, Button } from "@heroui/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const router = useRouter();
   const { data: session } = authClient.useSession();
   // console.log("Session", session);
   const user = session?.user;
   // console.log("User", user);
+  const handleSignOut = async() => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/login"); // redirect to login page
+        },
+      },
+    });
+  }
   return (
     <nav className="flex justify-between gap-6 p-3 bg-white">
       <ul className="flex gap-4">
@@ -40,7 +51,7 @@ const Navbar = () => {
                 <Avatar.Fallback>{user.name[0]}</Avatar.Fallback>
               </Avatar>
             </li>
-            <Button className="rounded-none" variant="danger">
+            <Button onClick={handleSignOut} className="rounded-none" variant="danger">
               Logout
             </Button>
           </>
