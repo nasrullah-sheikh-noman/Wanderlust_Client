@@ -1,10 +1,11 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
-import { Card } from "@heroui/react";
+import { Card, Separator } from "@heroui/react";
 import {Button, Description, FieldError, Form, Input, Label, TextField} from "@heroui/react";
 import { redirect } from "next/navigation";
 import { FormEvent } from "react";
+import { FcGoogle } from "react-icons/fc";
 import { toast } from "sonner";
 
 type signUpFormData = {
@@ -41,13 +42,18 @@ const SignUpPage = () => {
     }
     // console.log({data, error});
   }
+  const handleGoogleSignIn = async() => {
+    await authClient.signIn.social({
+      provider: "google",
+    })
+  }
   return (
     <div className="flex flex-col mx-auto max-w-7xl my-12 space-y-7.5">
       <div className="flex flex-col items-center">
         <h1 className="text-2xl font-bold">Create Account</h1>
         <h4 className="text-xl">Start your adventure with Wanderlust</h4>
       </div>
-      <Card className="border-2  p-5">
+      <Card className="border-2 p-5">
         <Form onSubmit={onSubmit} className="flex w-96 flex-col gap-4" >
           <TextField
             isRequired
@@ -112,6 +118,17 @@ const SignUpPage = () => {
             </Button>
           </div>
         </Form>
+        <div className="flex mx-auto justify-center items-center gap-2">
+          <Separator/>
+          <div className="whitespace-nowrap">Or Sign up with</div>
+          <Separator/>
+        </div>
+        <div>
+          <Button onClick={handleGoogleSignIn} variant="secondary" type="submit" className={"w-full "}>
+            <FcGoogle />
+            <h2 className="text-black"> Sign up with Google</h2>
+          </Button>
+        </div>
       </Card>
     </div>
   );

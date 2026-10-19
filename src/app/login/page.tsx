@@ -1,43 +1,57 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
-import { Card } from "@heroui/react";
-import {Button, Description, FieldError, Form, Input, Label, TextField} from "@heroui/react";
+import { Card, Separator } from "@heroui/react";
+import {
+  Button,
+  Description,
+  FieldError,
+  Form,
+  Input,
+  Label,
+  TextField,
+} from "@heroui/react";
 import { redirect } from "next/navigation";
 import { FormEvent } from "react";
+import { FcGoogle } from "react-icons/fc";
 import { toast } from "sonner";
 
 type lonInFormData = {
-  email: string,
-  password: string,
-  name: string,
-  image: string,
-}
+  email: string;
+  password: string;
+  name: string;
+  image: string;
+};
 
 const LogInPage = () => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget)
+    const formData = new FormData(e.currentTarget);
     // const user = Object.fromEntries(formData.entries())
     const user: lonInFormData = {
       email: String(formData.get("email") ?? ""),
       password: String(formData.get("password") ?? ""),
       name: String(formData.get("name") ?? ""),
-      image: String(formData.get("image") ?? "")
-    }
+      image: String(formData.get("image") ?? ""),
+    };
     // console.log("user", user);
     const { data, error } = await authClient.signIn.email({
       email: user.email,
       password: user.password,
-    })
+    });
     if (data) {
-      toast.success(`Log in user`)
-      redirect('/')
-    } 
-    if (error) {
-      toast.error("Login failed")
+      toast.success(`Log in user`);
+      redirect("/");
     }
-    console.log({data, error});
+    if (error) {
+      toast.error("Login failed");
+    }
+    console.log({ data, error });
+  };
+  const handleGoogleSignIn = async() => {
+    await authClient.signIn.social({
+      provider: "google",
+    })
   }
   return (
     <div className="flex flex-col mx-auto max-w-7xl my-12 space-y-7.5">
@@ -45,7 +59,7 @@ const LogInPage = () => {
         <h1 className="text-2xl font-bold">Log in your Account</h1>
       </div>
       <Card className="border-2  p-5">
-        <Form onSubmit={onSubmit} className="flex w-96 flex-col gap-4" >
+        <Form onSubmit={onSubmit} className="flex w-96 flex-col gap-4">
           <TextField
             isRequired
             name="email"
@@ -88,10 +102,26 @@ const LogInPage = () => {
           </TextField>
           <div className="flex justify-center gap-2">
             <Button type="submit" className={"w-full"}>
-              Log in 
+              Log in
             </Button>
           </div>
         </Form>
+        <div className="flex mx-auto justify-center items-center gap-2">
+          <Separator />
+          <div className="whitespace-nowrap">Or Sign up with</div>
+          <Separator />
+        </div>
+        <div>
+          <Button
+            onClick={handleGoogleSignIn}
+            variant="secondary"
+            type="submit"
+            className={"w-full "}
+          >
+            <FcGoogle />
+            <h2 className="text-black"> Sign in with Google</h2>
+          </Button>
+        </div>
       </Card>
     </div>
   );
