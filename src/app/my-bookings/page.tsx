@@ -11,13 +11,13 @@ const MyBookingsPage = async () => {
   const user = session?.user
   // console.log("user", user);
   const res = await fetch(`http://localhost:8000/bookings/${user?.id}`);
-  const data = await res.json()
-  // console.log("data", data);
+  const bookings = await res.json()
+  // console.log("data", bookings);
   return (
     <div className='mx-auto max-w-7xl'>
       <h2 className='text-2xl font-bold'>My bookings</h2>
       <div>
-
+        
       </div>
     </div>
   );
