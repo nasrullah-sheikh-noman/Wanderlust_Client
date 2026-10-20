@@ -4,6 +4,7 @@ import { authClient } from "@/lib/auth-client";
 import { DestinationType } from "@/types/destination";
 import { Button, Card, DateValue } from "@heroui/react";
 import { DateField, Label } from "@heroui/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaCalendarAlt } from "react-icons/fa";
 import { toast } from "sonner";
@@ -13,6 +14,7 @@ type DestinationCardProps = {
 };
 
 const BookingCard = ({ destinationData }: DestinationCardProps) => {
+  const router = useRouter();
   const { data: session } = authClient.useSession();
   const user = session?.user;
   // console.log("user", user);
@@ -47,10 +49,12 @@ const BookingCard = ({ destinationData }: DestinationCardProps) => {
         });
         const data = await res.json();
         console.log("data", data);
+        toast.success("Booked successfully")
+        router.push('/my-bookings');
       } catch (error) {
         console.log("booking error", error);
       }
-      toast.success("Booked successfully")
+      
     }
   };
   return (
