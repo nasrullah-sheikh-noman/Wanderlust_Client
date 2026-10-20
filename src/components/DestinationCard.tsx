@@ -10,7 +10,7 @@ type DestinationCardProps = {
 }
 
 const DestinationCard = ({ destinationInfo } : DestinationCardProps) => {
-  const { _id, destination, country, category, price, duration, imageUrl, description} = destinationInfo;
+  const { _id, destination, country, price, duration, imageUrl} = destinationInfo;
   return (
     <div className=" p-5 rounded-2xl border-2 space-y-3">
       <div className="relative w-full h-64">
