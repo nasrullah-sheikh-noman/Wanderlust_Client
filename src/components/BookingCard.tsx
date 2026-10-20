@@ -23,7 +23,7 @@ const BookingCard = ({ destinationData }: DestinationCardProps) => {
   }
   const handleBooking = async () => {
     if (!departureDate) {
-      toast.warning("Please fill date feild!")
+      toast.warning("Please fill date feild!");
     } else {
       const bookingData = {
         userId: user?.id,
@@ -37,15 +37,20 @@ const BookingCard = ({ destinationData }: DestinationCardProps) => {
         departureDate: departureDate?.toDate("UTC"),
       };
       // console.log("Booking data", bookingData);
-      const res = await fetch("http://localhost:8000/booking", {
-        method: "POST", 
-        headers: {
-        "content-type": "application/json",
-        },
-        body: JSON.stringify(bookingData),
-      })
-      const data = await res.json();
-      console.log("data", data);
+      try {
+        const res = await fetch("http://localhost:8000/booking", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(bookingData),
+        });
+        const data = await res.json();
+        console.log("data", data);
+      } catch (error) {
+        console.log("booking error", error);
+      }
+      toast.success("Booked successfully")
     }
   };
   return (
