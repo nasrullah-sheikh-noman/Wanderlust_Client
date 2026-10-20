@@ -1,16 +1,16 @@
 "use client";
 
-import { DestinationType } from "@/types/destination";
+import { BookingType } from "@/types/booking";
 import { AlertDialog, Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { toast } from "sonner";
 
-type bookingCancleAlertProps = {
-  Booking: DestinationType;
-};
+type bookingCancleAlertType = {
+  Booking: BookingType
+}
 
-export function BookingCancleAlert({ Booking }: bookingCancleAlertProps) {
+export function BookingCancleAlert({ Booking }: bookingCancleAlertType) {
   const router = useRouter();
   const { _id, country } = Booking;
   const cancleDestinationHandle = async () => {

@@ -1,5 +1,6 @@
 import { BookingCancleAlert } from "@/components/BookingCancleAlert";
 import { auth } from "@/lib/auth";
+import { BookingType } from "@/types/booking";
 import { Button } from "@heroui/react";
 import { headers } from "next/headers";
 import Image from "next/image";
@@ -10,18 +11,6 @@ import { IoEyeSharp } from "react-icons/io5";
 
 export const instant = false;
 
-type booking = {
-  country: string;
-  departureDate: string;
-  destinationId: string;
-  destinationName: string;
-  imageUrl: string;
-  price: number;
-  userId: string;
-  userName: string;
-  userImage: string;
-  _id: string;
-};
 
 const MyBookingsPage = async () => {
   const session = await auth.api.getSession({
@@ -31,7 +20,7 @@ const MyBookingsPage = async () => {
   const user = session?.user;
   // console.log("user", user);
   const res = await fetch(`http://localhost:8000/bookings/${user?.id}`);
-  const bookings: booking[] = await res.json();
+  const bookings: BookingType[] = await res.json();
   // console.log("data", bookings);
   return (
     <div className="mx-auto max-w-7xl">
