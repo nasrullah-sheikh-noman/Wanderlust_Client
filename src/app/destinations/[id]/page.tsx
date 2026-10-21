@@ -1,6 +1,8 @@
 import BookingCard from "@/components/BookingCard";
 import { DeleteDialog } from "@/components/DeleteDialog";
 import { EditModal } from "@/components/EditModal";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
 import { FaRegCalendarDays } from "react-icons/fa6";
 import { LuMapPin } from "react-icons/lu";
@@ -16,11 +18,14 @@ type destinationDetailsPageProps = {
 const DestinationDetailsPage = async ({
   params,
 }: destinationDetailsPageProps) => {
+  const {token} = await auth.api.getToken({
+    headers: await headers()
+  })
   const { id } = await params;
   // console.log(id);
   const res = await fetch(`http://localhost:8000/destinations/${id}`, {
     headers: {
-      authorization: "logged in"
+      authorization: `Bearer ${token}`
     }
   });
   const destinationData = await res.json();
