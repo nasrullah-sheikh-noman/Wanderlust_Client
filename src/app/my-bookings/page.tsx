@@ -14,13 +14,20 @@ export const instant = false;
 
 const MyBookingsPage = async () => {
   await connection()
+  const {token} = await auth.api.getToken({
+    headers: await headers()
+  })
   const session = await auth.api.getSession({
     headers: await headers(),
   });
   // console.log("session", session);
   const user = session?.user;
   // console.log("user", user);
-  const res = await fetch(`http://localhost:8000/bookings/${user?.id}`);
+  const res = await fetch(`http://localhost:8000/bookings/${user?.id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
   const bookings: BookingType[] = await res.json();
   // console.log("data", bookings);
   return (

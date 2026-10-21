@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { BookingType } from "@/types/booking";
 import { AlertDialog, Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
@@ -12,13 +13,21 @@ type bookingCancleAlertType = {
 
 export function BookingCancleAlert({ Booking }: bookingCancleAlertType) {
   const router = useRouter();
-  const { _id, country } = Booking;
+  const { _id, country } = Booking;  
+
   const cancleDestinationHandle = async () => {
     try {
+      const { data: tokenData, error } = await authClient.token()
+      if (error || !tokenData?.token) {
+        toast.error("Unable to get authentication token")
+        return;
+      }
+      const token = tokenData.token;
       const res = await fetch(`http://localhost:8000/booking/${_id}`, {
         method: "DELETE",
         headers: {
           "content-type": "application/json",
+          Authorization: `Bearer ${token}`
         },
       });
       if (res.ok) {
