@@ -18,7 +18,11 @@ const DestinationDetailsPage = async ({
 }: destinationDetailsPageProps) => {
   const { id } = await params;
   // console.log(id);
-  const res = await fetch(`http://localhost:8000/destinations/${id}`);
+  const res = await fetch(`http://localhost:8000/destinations/${id}`, {
+    headers: {
+      authorization: "logged in"
+    }
+  });
   const destinationData = await res.json();
   // console.log(destinationData);
   const { destination, country, duration, imageUrl, description } =

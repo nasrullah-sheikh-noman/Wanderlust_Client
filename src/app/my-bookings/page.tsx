@@ -4,6 +4,7 @@ import { BookingType } from "@/types/booking";
 import { Button } from "@heroui/react";
 import { headers } from "next/headers";
 import Image from "next/image";
+import { connection } from "next/server";
 import { FaRegCalendarDays } from "react-icons/fa6";
 import { GiConfirmed } from "react-icons/gi";
 import { IoIosPin } from "react-icons/io";
@@ -11,8 +12,8 @@ import { IoEyeSharp } from "react-icons/io5";
 
 export const instant = false;
 
-
 const MyBookingsPage = async () => {
+  await connection()
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -47,9 +48,13 @@ const MyBookingsPage = async () => {
                 <div className="flex items-center gap-1 ">
                   <FaRegCalendarDays />
                   <h2 className="text-base">Departure:</h2>
-                  <h2 className="text-balance font-bold">
-                    {new Date(booking.departureDate).toLocaleDateString()}
-                  </h2>
+                  {
+                    booking.departureDate && (
+                      <h2 className="text-balance font-bold">
+                        {new Date(booking.departureDate).toLocaleDateString()}
+                      </h2>
+                    )
+                  }
                 </div>
                 <h2 className="text-2xl font-bold">${booking.price}</h2>
                 <div className="flex items-center gap-1">
@@ -60,7 +65,9 @@ const MyBookingsPage = async () => {
             </div>
             <div className="flex gap-2 mt-auto justify-items-center">
               <BookingCancleAlert Booking={booking} />
-              <Button><IoEyeSharp /> View</Button>
+              <Button>
+                <IoEyeSharp /> View
+              </Button>
             </div>
           </div>
         ))}

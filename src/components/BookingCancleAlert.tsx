@@ -30,7 +30,7 @@ export function BookingCancleAlert({ Booking }: bookingCancleAlertType) {
       const data = await res.json();
       console.log("data", data);
     } catch (error) {
-      console.log("erro", error);
+      console.log("error", error);
     }
   };
   return (
@@ -64,7 +64,7 @@ export function BookingCancleAlert({ Booking }: bookingCancleAlertType) {
                 slot="close"
                 variant="danger"
               >
-                Cancle Destination
+                Cancle Booking
               </Button>
             </AlertDialog.Footer>
           </AlertDialog.Dialog>
