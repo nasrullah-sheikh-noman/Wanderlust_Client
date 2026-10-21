@@ -40,10 +40,18 @@ const BookingCard = ({ destinationData }: DestinationCardProps) => {
       };
       // console.log("Booking data", bookingData);
       try {
+        const { data: tokenData, error } = await authClient.token()
+        if (error || !tokenData?.token) {
+          toast.error("Unable to get authentication token")
+          return;
+        }
+        const token = tokenData.token
+        // console.log("token", token);
         const res = await fetch("http://localhost:8000/booking", {
           method: "POST",
           headers: {
             "content-type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(bookingData),
         });
