@@ -12,13 +12,13 @@ type DestinationCardProps = {
 const DestinationCard = ({ destinationInfo } : DestinationCardProps) => {
   const { _id, destination, country, price, duration, imageUrl} = destinationInfo;
   return (
-    <div className=" p-5 rounded-2xl border-2 space-y-3">
+    <div className=" p-5 rounded-2xl space-y-3 transform duration-400 hover:scale-105 border-2 hover:border-cyan-400">
       <div className="relative w-full h-64">
         <Image
           alt={destination}
           src={imageUrl}
           fill
-          className="object-cover"
+          className="object-cover rounded-xl transform duration-400 hover:scale-105 "
         />
       </div>
       <div className="space-y-1.5">
@@ -26,7 +26,7 @@ const DestinationCard = ({ destinationInfo } : DestinationCardProps) => {
           <LuMapPin />
           <span>{country}</span>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-5">
           <div className="space-y-1">
             <div className=" font-bold">
               {destination}
