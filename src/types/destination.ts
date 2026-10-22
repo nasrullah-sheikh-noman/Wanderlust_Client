@@ -1,9 +1,9 @@
 export interface DestinationType {
   _id: string;
   destination: string;
-  country: string;
+  country: string; 
   category: string;
-  price: number;
+  price: string;
   duration: string;
   imageUrl: string;
   description: string;

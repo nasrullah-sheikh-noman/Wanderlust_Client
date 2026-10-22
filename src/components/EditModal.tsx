@@ -16,7 +16,6 @@ import {
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 import { BiSolidEdit } from "react-icons/bi";
-import { MdArrowOutward } from "react-icons/md";
 import { toast } from "sonner";
 
 type DestinationDataType = {
@@ -42,7 +41,7 @@ export function EditModal({ destinationData }: DestinationDataType) {
     const formData = new FormData(e.currentTarget);
     const destinationData = Object.fromEntries(formData.entries());
     // console.log("destination data", destinationData);
-    const res = await fetch(`http://localhost:8000/destinations/${_id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}//destinations/${_id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -58,7 +57,7 @@ export function EditModal({ destinationData }: DestinationDataType) {
       router.refresh();
     }
 
-    const data = await res.json();
+    await res.json();
     // console.log("data", data);
   };
   return (

@@ -4,9 +4,9 @@ import { DestinationType } from "@/types/destination";
 export const instant = false
 
 const DestinatiosPage = async () => {
-  const res = await fetch('http://localhost:8000/destinations');
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}//destinations`);
   if (!res.ok) {
-    throw new Error("Failed to fatch destinations");
+    throw Error("Failed to fatch destinations");
   }
   const destinations : DestinationType[] = await res.json();
   // console.log("all destinations ", destinations);
